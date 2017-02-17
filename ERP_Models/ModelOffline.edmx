@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ERPModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ERPModelStoreContainer">
+          <EntitySet Name="AccountingYear" EntityType="ERPModel.Store.AccountingYear" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CompanyMaster" EntityType="ERPModel.Store.CompanyMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FormMaster" EntityType="ERPModel.Store.FormMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ModuleMaster" EntityType="ERPModel.Store.ModuleMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RoleMaster" EntityType="ERPModel.Store.RoleMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SubCompanyMaster" EntityType="ERPModel.Store.SubCompanyMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TaxMaster" EntityType="ERPModel.Store.TaxMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TaxTran" EntityType="ERPModel.Store.TaxTran" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserFormTran" EntityType="ERPModel.Store.UserFormTran" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserMaster" EntityType="ERPModel.Store.UserMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserModuleTran" EntityType="ERPModel.Store.UserModuleTran" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="AccountingYear">
+          <Key>
+            <PropertyRef Name="AYID" />
+          </Key>
+          <Property Name="AYID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="CompanyMaster">
+          <Key>
+            <PropertyRef Name="CompID" />
+          </Key>
+          <Property Name="CompID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PCompID" Type="int" />
+          <Property Name="CompName" Type="varchar" MaxLength="350" />
+          <Property Name="ContactPerson" Type="varchar" MaxLength="250" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="numeric" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="City" Type="varchar" MaxLength="150" />
+          <Property Name="State" Type="varchar" MaxLength="150" />
+          <Property Name="Country" Type="varchar" MaxLength="150" />
+          <Property Name="Logo" Type="varchar" MaxLength="350" />
+          <Property Name="Sign" Type="varchar" MaxLength="350" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormMaster">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="int" />
+          <Property Name="FormName" Type="varchar" MaxLength="250" />
+          <Property Name="URL" Type="varchar" MaxLength="350" />
+          <Property Name="Description" Type="varchar" MaxLength="350" />
+          <Property Name="Sequence" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="ModuleMaster">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Module" Type="varchar" MaxLength="150" />
+          <Property Name="Description" Type="varchar" MaxLength="350" />
+          <Property Name="Icon" Type="varchar" MaxLength="250" />
+          <Property Name="Sequence" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="varchar" MaxLength="150" />
+          <Property Name="Description" Type="varchar" MaxLength="350" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SubCompanyMaster">
+          <Key>
+            <PropertyRef Name="SCID" />
+          </Key>
+          <Property Name="SCID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="350" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="ContactPerson" Type="varchar" MaxLength="350" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="numeric" />
+          <Property Name="City" Type="varchar" MaxLength="350" />
+          <Property Name="State" Type="varchar" MaxLength="250" />
+          <Property Name="Country" Type="varchar" MaxLength="250" />
+          <Property Name="Logo" Type="varchar" MaxLength="250" />
+          <Property Name="Sign" Type="varchar" MaxLength="250" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaxMaster">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Name="TID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="450" />
+          <Property Name="Percentage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TaxTran">
+          <Key>
+            <PropertyRef Name="TTID" />
+          </Key>
+          <Property Name="TTID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="450" />
+          <Property Name="Percentage" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserFormTran">
+          <Key>
+            <PropertyRef Name="UFTID" />
+          </Key>
+          <Property Name="UFTID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="int" />
+          <Property Name="FID" Type="int" />
+          <Property Name="IsChecked" Type="bit" Nullable="false" />
+          <Property Name="AssignedBy" Type="int" />
+          <Property Name="AssignedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="int" />
+          <Property Name="SCompID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="AccID" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="250" />
+          <Property Name="LastName" Type="varchar" MaxLength="250" />
+          <Property Name="UserName" Type="varchar" MaxLength="350" />
+          <Property Name="Password" Type="varchar" MaxLength="150" />
+          <Property Name="Mobile" Type="numeric" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Address" Type="varchar(max)" />
+          <Property Name="City" Type="varchar" MaxLength="150" />
+          <Property Name="PostCode" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="150" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="CanLogin" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserModuleTran">
+          <Key>
+            <PropertyRef Name="UMTID" />
+          </Key>
+          <Property Name="UMTID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="int" />
+          <Property Name="MID" Type="int" />
+          <Property Name="IsChecked" Type="bit" Nullable="false" />
+          <Property Name="AssignedBy" Type="int" />
+          <Property Name="AssignedDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ERPModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ERPEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="CompanyMasters" EntityType="ERPModel.CompanyMaster" />
+          <EntitySet Name="FormMasters" EntityType="ERPModel.FormMaster" />
+          <EntitySet Name="ModuleMasters" EntityType="ERPModel.ModuleMaster" />
+          <EntitySet Name="SubCompanyMasters" EntityType="ERPModel.SubCompanyMaster" />
+          <EntitySet Name="UserFormTrans" EntityType="ERPModel.UserFormTran" />
+          <EntitySet Name="UserMasters" EntityType="ERPModel.UserMaster" />
+          <EntitySet Name="UserModuleTrans" EntityType="ERPModel.UserModuleTran" />
+          <EntitySet Name="AccountingYears" EntityType="ERPModel.AccountingYear" />
+          <EntitySet Name="RoleMasters" EntityType="ERPModel.RoleMaster" />
+          <EntitySet Name="TaxMasters" EntityType="ERPModel.TaxMaster" />
+          <EntitySet Name="TaxTrans" EntityType="ERPModel.TaxTran" />
+        </EntityContainer>
+        <EntityType Name="CompanyMaster">
+          <Key>
+            <PropertyRef Name="CompID" />
+          </Key>
+          <Property Name="CompID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CompName" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Address" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Logo" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Sign" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Type="Int32" Name="PCompID" />
+        </EntityType>
+        <EntityType Name="FormMaster">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="MID" Type="Int32" />
+          <Property Name="FormName" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="URL" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Type="String" Name="Sequence" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ModuleMaster">
+          <Key>
+            <PropertyRef Name="MID" />
+          </Key>
+          <Property Name="MID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Module" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Icon" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Sequence" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="SubCompanyMaster">
+          <Key>
+            <PropertyRef Name="SCID" />
+          </Key>
+          <Property Name="SCID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="City" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Logo" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Sign" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserFormTran">
+          <Key>
+            <PropertyRef Name="UFTID" />
+          </Key>
+          <Property Name="UFTID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="FID" Type="Int32" />
+          <Property Name="IsChecked" Type="Boolean" Nullable="false" />
+          <Property Name="AssignedBy" Type="Int32" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserMaster">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CompID" Type="Int32" />
+          <Property Name="SCompID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="UserName" Type="String" MaxLength="350" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Mobile" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Email" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="PostCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="CanLogin" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Type="Int32" Name="AccID" />
+        </EntityType>
+        <EntityType Name="UserModuleTran">
+          <Key>
+            <PropertyRef Name="UMTID" />
+          </Key>
+          <Property Name="UMTID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="MID" Type="Int32" />
+          <Property Name="IsChecked" Type="Boolean" Nullable="false" />
+          <Property Name="AssignedBy" Type="Int32" />
+          <Property Name="AssignedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AccountingYear">
+          <Key>
+            <PropertyRef Name="AYID" />
+          </Key>
+          <Property Type="Int32" Name="AYID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Year" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Status" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Type="Int32" Name="RID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Role" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Status" />
+          <Property Type="Int32" Name="CreatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="TaxMaster">
+          <Key>
+            <PropertyRef Name="TID" />
+          </Key>
+          <Property Type="Int32" Name="TID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Percentage" Precision="5" Scale="2" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Status" />
+          <Property Type="Int32" Name="CreatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="TaxTran">
+          <Key>
+            <PropertyRef Name="TTID" />
+          </Key>
+          <Property Type="Int32" Name="TTID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="TID" />
+          <Property Type="String" Name="Name" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Percentage" Precision="5" Scale="2" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Status" />
+          <Property Type="Int32" Name="CreatedBy" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="Int32" Name="UpdatedBy" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ERPModelStoreContainer" CdmEntityContainer="ERPEntities">
+          <EntitySetMapping Name="CompanyMasters">
+            <EntityTypeMapping TypeName="ERPModel.CompanyMaster">
+              <MappingFragment StoreEntitySet="CompanyMaster">
+                <ScalarProperty Name="PCompID" ColumnName="PCompID" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
+                <ScalarProperty Name="CompName" ColumnName="CompName" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Sign" ColumnName="Sign" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormMasters">
+            <EntityTypeMapping TypeName="ERPModel.FormMaster">
+              <MappingFragment StoreEntitySet="FormMaster">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleMasters">
+            <EntityTypeMapping TypeName="ERPModel.ModuleMaster">
+              <MappingFragment StoreEntitySet="ModuleMaster">
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCompanyMasters">
+            <EntityTypeMapping TypeName="ERPModel.SubCompanyMaster">
+              <MappingFragment StoreEntitySet="SubCompanyMaster">
+                <ScalarProperty Name="SCID" ColumnName="SCID" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Sign" ColumnName="Sign" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFormTrans">
+            <EntityTypeMapping TypeName="ERPModel.UserFormTran">
+              <MappingFragment StoreEntitySet="UserFormTran">
+                <ScalarProperty Name="UFTID" ColumnName="UFTID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMasters">
+            <EntityTypeMapping TypeName="ERPModel.UserMaster">
+              <MappingFragment StoreEntitySet="UserMaster">
+                <ScalarProperty Name="AccID" ColumnName="AccID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="CompID" ColumnName="CompID" />
+                <ScalarProperty Name="SCompID" ColumnName="SCompID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CanLogin" ColumnName="CanLogin" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserModuleTrans">
+            <EntityTypeMapping TypeName="ERPModel.UserModuleTran">
+              <MappingFragment StoreEntitySet="UserModuleTran">
+                <ScalarProperty Name="UMTID" ColumnName="UMTID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="MID" ColumnName="MID" />
+                <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+                <ScalarProperty Name="AssignedBy" ColumnName="AssignedBy" />
+                <ScalarProperty Name="AssignedDate" ColumnName="AssignedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountingYears">
+            <EntityTypeMapping TypeName="ERPModel.AccountingYear">
+              <MappingFragment StoreEntitySet="AccountingYear">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="AYID" ColumnName="AYID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMasters">
+            <EntityTypeMapping TypeName="ERPModel.RoleMaster">
+              <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="RID" ColumnName="RID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxMasters">
+            <EntityTypeMapping TypeName="ERPModel.TaxMaster">
+              <MappingFragment StoreEntitySet="TaxMaster">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxTrans">
+            <EntityTypeMapping TypeName="ERPModel.TaxTran">
+              <MappingFragment StoreEntitySet="TaxTran">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TID" ColumnName="TID" />
+                <ScalarProperty Name="TTID" ColumnName="TTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

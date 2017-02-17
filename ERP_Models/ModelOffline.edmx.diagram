@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="67b76922dc2647d180b14979fc337755" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="ERPModel.CompanyMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.FormMaster" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.ModuleMaster" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.SubCompanyMaster" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.UserFormTran" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.UserMaster" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.UserModuleTran" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ERPModel.AccountingYear" Width="1.5" PointX="5.0326435403119048" PointY="25.563721907121931" />
+        <EntityTypeShape EntityType="ERPModel.RoleMaster" Width="1.5" PointX="7.5934362074329682" PointY="6.01951074880525" />
+        <EntityTypeShape EntityType="ERPModel.TaxMaster" Width="1.5" PointX="4.437023980746523" PointY="6.45208508076709" />
+        <EntityTypeShape EntityType="ERPModel.TaxTran" Width="1.5" PointX="11.804831709621862" PointY="13.762453934998463" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Tax";
+}
+@using ERP_Models.ViewModel
+@model TaxModel
+
+@using (@Html.BeginForm("EditSTax", "Tax", FormMethod.Post, new { @id = "frmComp", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.TTID)
+    @Html.HiddenFor(m => m.CreatedBy)
+    @Html.HiddenFor(m => m.CreatedDate)              
+    <!-- **Breadcrumb Section** -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            @*<h3>Company</h3>*@
+            <div class="breadcrumb">
+                <a href="/Dashboard/Index" title="">Home</a> / <span>Tax</span>
+            </div>
+        </div>
+    </div>
+    <!-- **Breadcrumb Section Ends** -->
+
+    <!--end col 6-->
+    <div class="col-md-12">
+
+        <div class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    @*<button type="button" class="btn btn-success btn-border">Back</button>*@
+                    @*<a class="btn btn-success btn-border" href="/Tax/Index">Back</a>*@
+                </div>
+                <h2 class="panel-title">Tax Details</h2>
+            </header>
+            <div class="panel-body">
+                @Html.Label("* Tax Type", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(m => m.TID, new SelectList(Model.ListActiveTax, "TID", "Name"), "--Select Tax Type--", new { @class = "form-control", @id = "ddlTax" })
+                    @Html.ValidationMessageFor(m => m.TID)
+                </div>
+                <div class="col-sm-12" style="height: 5px;"></div>
+                @Html.Label("* Tax Type", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name)
+
+                </div>
+                @Html.Label("* Percentage(%)", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Percentage, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Percentage)
+
+                </div>
+                <div class="col-sm-12" style="height: 5px;"></div>
+                @Html.Label("Description", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+
+                </div>
+                @Html.Label("Status", new { @class = "col-sm-2 control-label" })
+                <div class="col-sm-4">
+                    @Html.RadioButtonFor(m => m.Status, true)Active
+                        @Html.RadioButtonFor(m => m.Status, false)InActive
+                </div>
+                <div class="col-sm-12" style="height: 5px;"></div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    @*<input type="submit" value="Save Tax" id="btnSave" name="cmd" class="btn btn-primary" />*@
+                    <input type="submit" value="Update" name="cmd" class="btn btn-primary" />
+                    &nbsp;<a href="/Tax/Index" class="btn btn-danger">Cancel</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    
+}
+
+
+
+
+
+

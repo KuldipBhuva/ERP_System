@@ -1,0 +1,373 @@
+﻿@{
+    ViewBag.Title = "Company";
+}
+@using ERP_Models.ViewModel
+@model CompanyModel
+<style type="text/css">
+    .thumb-image
+    {
+        float: left;
+        width: 100px;
+        height: 110px;
+        border: 1px solid #5bc0de;
+        position: relative;
+        padding: 5px;
+    }
+</style>
+@using (@Html.BeginForm("Index", "Company", FormMethod.Post, new { @id = "frmComp", enctype = "multipart/form-data" }))
+{
+@*@using (Ajax.BeginForm("AddEditRecord", "Company", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "studentDialog" }))
+{*@
+    if (Model.CompID != null && Model.CompID != 0)
+    {
+    @Html.HiddenFor(m => m.CompID)
+    @Html.HiddenFor(m => m.CreatedBy)
+    @Html.HiddenFor(m => m.CreatedDate)
+    @Html.HiddenFor(m => m.PCompID)
+    @Html.HiddenFor(m => m.Logo)
+    @Html.HiddenFor(m => m.Sign)
+    }
+    int rid = 0;
+    if (Session["RoleID"] != null)
+    { rid = Convert.ToInt32(Session["RoleID"].ToString()); }
+        
+    
+    <!-- **Breadcrumb Section** -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            @*<h3>Company</h3>*@
+            <div class="breadcrumb">
+                <a href="/Dashboard/Index" title="">Home</a> / <span>Company</span>
+            </div>
+        </div>
+    </div>
+    <!-- **Breadcrumb Section Ends** -->
+    
+    <!--end col 6-->
+    <div class="col-md-12">
+        <div class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+
+                    @*<a href="javascript:void(0)" class="panel-action action-link btn btn-primary btn-border" ><i class="fa fa-plus-square">&nbsp;ADD NEW</i></a>*@
+
+                    @*<button type="button" class="btn btn-success btn-border">Add New</button>*@
+                    <button type="button" class="btn btn-success btn-border" id="btnAdd" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Add New</button>
+                    @*@Html.ActionLink("Create New", "AddEditRecord", "Company", null, new { @id = "openDialog", @class = "btn btn-success btn-border" })*@
+                    @*        <a href="javascript:void(0)" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
+                    <a href="javascript:void(0)" class="panel-action panel-action-dismiss" data-panel-dismiss=""></a>*@
+                    @*<div class="dropdown pull-left">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="ion-more"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-scale">
+                            <li><a href="javascript:void(0)">Action</a></li>
+                            <li><a href="javascript:void(0)">Just Action</a></li>
+                            <li><a href="javascript:void(0)">Action Now</a></li>
+                        </ul>
+                    </div>*@
+                </div>
+                <h2 class="panel-title">Company List</h2>
+            </header>
+            <div class="panel-body">
+                <table class="table" id="tbl">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model.ListComp)
+                        {
+                            <tr>
+                                <td>@i.CompName</td>
+                                <td>@i.Email</td>
+                                <td>@i.Phone</td>
+                                <td>@i.City</td>
+                                <td>
+                                    @Html.ActionLink(" ", "Edit", new { @id = i.CompID }, new { @class = "fa fa-pencil-square fa-lg" })
+                                    @* @Html.ActionLink("Edit", "Edit", new { id = i.CompID })|
+                    @Html.ActionLink("Details", "Details", new { id = i.CompID }, new { @class = "viewDialog" }) |
+                    @Html.ActionLink("Delete", "DeleteRecord", new { id = i.CompID }, new { @class = "confirmDialog" })*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*<div class="form-group">
+                    @Html.Label("* Company", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.CompName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CompName)
+
+                    </div>
+                    @Html.Label("Contact Person", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.ContactPerson, new { @class = "form-control" })
+
+
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                    @Html.Label("Email", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        
+
+                    </div>
+                    @Html.Label("* Phone", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                    @Html.Label("Address", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                    </div>
+                    @Html.Label("City", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.City)
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                    @Html.Label("State", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+
+                    </div>
+                    @Html.Label("Country", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                      @Html.Label("Logo", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-4">                            
+                            <input type="file" value="" id="fleLogo" name="fileLogo" class="btn btn-info btn-border" />
+
+                        </div>
+                    @Html.Label("Sign", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-4">                            
+                            <input type="file" value="" id="fleSign" name="fileSign" class="btn btn-info btn-border" />
+
+                        </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                     <div class="col-sm-2"></div>
+                     <div class="col-sm-2">
+                    
+                         <input type="submit" value="Save" id="btnSave" name="cmd" class="btn btn-primary" />
+                         </div>
+                        
+                </div>*@
+            </div>
+            <!--end panel body-->
+        </div>
+        <!--end panel-->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Company Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @if (rid == 1)
+                            {
+                                @Html.Label("Parent Company", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.PCompID, new SelectList(Model.ListPComp, "CompID", "CompName"), "--Select Parent Company--", new { @class = "form-control", @id = "ddlComp" })
+                                    @*@Html.ValidationMessageFor(m => m.PCompID)*@
+                                </div>
+                                <div class="col-sm-12" style="height: 5px;"></div>
+                            }
+                           
+                            
+                            @Html.Label("* Company", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.CompName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CompName)
+
+                            </div>
+                            @Html.Label("Contact Person", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.ContactPerson, new { @class = "form-control" })
+
+
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("Email", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+
+                            </div>
+                            @Html.Label("Phone", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Phone)
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("Address", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                            </div>
+                            @Html.Label("* City", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.City)
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("State", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+
+                            </div>
+                            @Html.Label("Country", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("Logo", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                <input type="file" value="" id="fleLogo" name="fileLogo" class="btn btn-info btn-border" />
+
+                            </div>
+                            @Html.Label("Sign", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                <input type="file" value="" id="fleSign" name="fileSign" class="btn btn-info btn-border" />
+
+                            </div>
+
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            <div class="col-sm-2"></div>
+                            <div id="image-holder" class="col-sm-4 img-rounded"></div>
+                            <div class="col-sm-2"></div>
+                            <div id="image-holder1" class="col-sm-4 img-rounded"></div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            <div id="dvStatus">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-6">
+                                    <img id="img" src="@Url.Content("~/PhotoUpload/Logo/" + Model.Logo)" alt="logo" class="img-rounded thumb-image" width="100" height="100" /></div>
+                                
+                                
+                                <div class="col-sm-2">
+                                    <img id="img1" src="@Url.Content("~/PhotoUpload/Sign/" + Model.Sign)" alt="sign" class="img-rounded thumb-image" width="100" height="100" /></div>
+                                
+                                <div class="col-sm-12" style="height: 5px;"></div>
+                                @Html.Label("Status", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.RadioButtonFor(m => m.Status, true)Active
+                        @Html.RadioButtonFor(m => m.Status, false)InActive
+                                </div>
+                                <div class="col-sm-12" style="height: 5px;"></div>
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">
+
+                                <input type="submit" value="Save" id="btnSave" name="cmd" class="btn btn-primary" />
+                                <input type="submit" value="Update" id="btnUpdate" name="cmd" class="btn btn-primary" />
+                                &nbsp;@*<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>*@
+                                <a href="/Company/Index" class="btn btn-danger">Cancel</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--end col 6-->
+    
+  
+}
+
+
+<script>
+    $("#fleSign").on('change', function () {
+
+        //Get count of selected files
+        var countFiles = $(this)[0].files.length;
+
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        var image_holder = $("#image-holder1");
+        image_holder.empty();
+
+        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg" || extn == "gif") {
+            if (typeof (FileReader) != "undefined") {
+
+                //loop for each file selected for uploaded.
+                for (var i = 0; i < countFiles; i++) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "img-rounded thumb-image"
+                        }).appendTo(image_holder);
+                    }
+
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        } else {
+            alert("Pls select only images");
+        }
+    });
+
+
+    $("#fleLogo").on('change', function () {
+
+        //Get count of selected files
+        var countFiles = $(this)[0].files.length;
+
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        var image_holder = $("#image-holder");
+        image_holder.empty();
+
+        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg" || extn == "gif") {
+            if (typeof (FileReader) != "undefined") {
+
+                //loop for each file selected for uploaded.
+                for (var i = 0; i < countFiles; i++) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("<img />", {
+                            "src": e.target.result,
+                            "class": "img-rounded thumb-image"
+                        }).appendTo(image_holder);
+                    }
+
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        } else {
+            alert("Pls select only images");
+        }
+    });
+
+</script>
+
+
+
+

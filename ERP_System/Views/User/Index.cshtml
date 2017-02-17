@@ -1,0 +1,383 @@
+﻿@{
+    ViewBag.Title = "Company";
+}
+@using ERP_Models.ViewModel
+@model UserModel
+
+@using (@Html.BeginForm("Index", "User", FormMethod.Post, new { @id = "frmComp", enctype = "multipart/form-data" }))
+{
+@*@using (Ajax.BeginForm("AddEditRecord", "Company", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "studentDialog" }))
+{*@
+    if (Model.UID != null && Model.UID != 0)
+    {
+    @Html.HiddenFor(m => m.UID)
+    @Html.HiddenFor(m => m.CreatedBy)
+    @Html.HiddenFor(m => m.CreatedDate)
+    @Html.HiddenFor(m => m.Title, new { @id = "hdnTitle" })
+    @Html.HiddenFor(m => m.UserName)
+    @Html.HiddenFor(m => m.Password)
+    @Html.HiddenFor(m => m.CompID)
+    
+    }
+    int rid = 0;
+    if (Session["RoleID"] != null)
+    { rid = Convert.ToInt32(Session["RoleID"].ToString()); }
+    <!-- **Breadcrumb Section** -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            @*<h3>Company</h3>*@
+            <div class="breadcrumb">
+                <a href="/Dashboard/Index" title="">Home</a> / <span>User</span>
+            </div>
+        </div>
+    </div>
+    <!-- **Breadcrumb Section Ends** -->
+    
+    <!--end col 6-->
+    <div class="col-md-12">
+        <div class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+
+                    @*<a href="javascript:void(0)" class="panel-action action-link btn btn-primary btn-border" ><i class="fa fa-plus-square">&nbsp;ADD NEW</i></a>*@
+
+                    @*<button type="button" class="btn btn-success btn-border">Add New</button>*@
+                    <button type="button" class="btn btn-success btn-border" id="btnAdd" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">Add New</button>
+                    @*@Html.ActionLink("Create New", "AddEditRecord", "Company", null, new { @id = "openDialog", @class = "btn btn-success btn-border" })*@
+                    @*        <a href="javascript:void(0)" class="panel-action panel-action-toggle" data-panel-toggle=""></a>
+                    <a href="javascript:void(0)" class="panel-action panel-action-dismiss" data-panel-dismiss=""></a>*@
+                    @*<div class="dropdown pull-left">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="ion-more"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-scale">
+                            <li><a href="javascript:void(0)">Action</a></li>
+                            <li><a href="javascript:void(0)">Just Action</a></li>
+                            <li><a href="javascript:void(0)">Action Now</a></li>
+                        </ul>
+                    </div>*@
+                </div>
+                <h2 class="panel-title">User List</h2>
+            </header>
+            <div class="panel-body">
+                <table class="table" id="tbl">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model.ListUser)
+                        {
+                            <tr>
+                                <td>@i.Title @i.FirstName @i.LastName</td>
+                                <td>@i.CompDetails.CompName</td>
+                                <td>@i.RoleDetails.Role</td>
+                                <td>@i.Email</td>
+                                <td>@i.Mobile</td>
+                                <td>@i.City</td>
+                                <td>
+                                    @Html.ActionLink(" ", "Edit", new { @id = i.UID }, new { @class = "fa fa-pencil-square fa-lg" })
+                                    @* @Html.ActionLink("Edit", "Edit", new { id = i.CompID })|
+                    @Html.ActionLink("Details", "Details", new { id = i.CompID }, new { @class = "viewDialog" }) |
+                    @Html.ActionLink("Delete", "DeleteRecord", new { id = i.CompID }, new { @class = "confirmDialog" })*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*<div class="form-group">
+                    @Html.Label("* Company", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.CompName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.CompName)
+
+                    </div>
+                    @Html.Label("Contact Person", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.ContactPerson, new { @class = "form-control" })
+
+
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                    @Html.Label("Email", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        
+
+                    </div>
+                    @Html.Label("* Phone", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                    @Html.Label("Address", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                    </div>
+                    @Html.Label("City", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.City)
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                    @Html.Label("State", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+
+                    </div>
+                    @Html.Label("Country", new { @class = "col-sm-2 control-label" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+
+                    </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                      @Html.Label("Logo", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-4">                            
+                            <input type="file" value="" id="fleLogo" name="fileLogo" class="btn btn-info btn-border" />
+
+                        </div>
+                    @Html.Label("Sign", new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-4">                            
+                            <input type="file" value="" id="fleSign" name="fileSign" class="btn btn-info btn-border" />
+
+                        </div>
+                    <div class="col-sm-12" style="height: 5px;"></div>
+                     <div class="col-sm-2"></div>
+                     <div class="col-sm-2">
+                    
+                         <input type="submit" value="Save" id="btnSave" name="cmd" class="btn btn-primary" />
+                         </div>
+                        
+                </div>*@
+            </div>
+            <!--end panel body-->
+        </div>
+        <!--end panel-->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">User Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                             @Html.Label("Accounting Year", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.DropDownListFor(m => m.AccID, new SelectList(Model.ListAcYr, "AYID", "Year"), "--Select Accounting Year--", new { @class = "form-control" })
+                                    @*@Html.ValidationMessageFor(m => m.PCompID)*@
+                                </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("* Company", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(m => m.CompID, new SelectList(Model.ListComp, "CompID", "CompName"), "--Select Company--", new { @class = "form-control", @id = "ddlComp" })
+                                @Html.ValidationMessageFor(m => m.CompID)
+                            </div>
+
+                            @Html.Label("* Role", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(m => m.RoleID, new SelectList(Model.ListRole, "RID", "Role"), "--Select Role--", new { @class = "form-control", @id = "ddlRole" })
+                                @*@Html.DropDownListFor(m => m.RoleID, new List<SelectListItem>() { new SelectListItem() { Text = "--Select Role--", Value = "" }, new SelectListItem() { Text = "Company Admin", Value = "2" }, new SelectListItem() { Text = "Company User", Value = "3" } }, new { @class = "form-control" })*@
+                                @*@Html.DropDownListFor(m => m.RoleID, new List<SelectListItem>() { new SelectListItem() { Text = "--Select Role--", Value = "" }, new SelectListItem() { Text = "Super Admin", Value = "1" }, new SelectListItem() { Text = "Company Admin", Value = "2" }, new SelectListItem() { Text = "Company User", Value = "3" }, new SelectListItem() { Text = "Staff", Value = "4" } }, new { @class = "form-control", @id = "ddlRole" })*@
+                                @Html.ValidationMessageFor(m => m.RoleID)
+                            </div>
+
+
+
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("* Name", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-2">
+                                @Html.DropDownListFor(m => m.Title, new List<SelectListItem>() { new SelectListItem() { Text = "--Select Title--", Value = "" }, new SelectListItem() { Text = "Mr", Value = "Mr" }, new SelectListItem() { Text = "Ms", Value = "Ms" }, new SelectListItem() { Text = "Miss", Value = "Miss" }, new SelectListItem() { Text = "Mrs", Value = "Mrs" }, new SelectListItem() { Text = "Dr", Value = "Dr" }, new SelectListItem() { Text = "Sir", Value = "Sir" } }, new { @class = "form-control", @id = "ddlTitle" })
+                                @*@Html.TextBoxFor(m => m.Title, new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(m => m.Title)
+
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "* First Name" })
+                                @Html.ValidationMessageFor(m => m.FirstName)
+
+                            </div>
+
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "* Last Name" })
+                                @Html.ValidationMessageFor(m => m.LastName)
+
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("* Email", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "as Username" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                                <span class="label label-danger">As User's Username</span>
+                            </div>
+                            @Html.Label("* Mobile", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @placeholder = "as Password" })
+                                @Html.ValidationMessageFor(m => m.Mobile)
+                                <span class="label label-danger">As User's Password</span>
+                            </div>
+
+
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("Address", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                            </div>
+                            @Html.Label("* City", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.City)
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            @Html.Label("Post Code", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
+
+                            </div>
+                            <div id="dvStatus">
+                                @Html.Label("Status", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.RadioButtonFor(m => m.Status, true)Active
+                        @Html.RadioButtonFor(m => m.Status, false)InActive
+                                </div>
+
+                                <div class="col-sm-12" style="height: 5px;"></div>
+                                @Html.Label("Can Login?", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.CheckBoxFor(m => m.CanLogin)
+                                </div>
+
+                                @Html.Label("Reset Password?", new { @class = "col-sm-2 control-label" })
+                                <div class="col-sm-4">
+                                    @Html.CheckBoxFor(m => m.reset)
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            <fieldset class="scheduler-border">
+                                <legend class="scheduler-border">Task Assignment</legend>
+                                <div class="panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" href="#collapse3"><i class="fa fa-bars">&nbsp;Menu/Form Details</i></a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse3" class="panel-collapse collapse">
+                                            <div class="panel-body" style="margin-left: 10px;">
+
+                                                @if (Model.ListModule != null && Model.UID == 0)
+                                                {
+                                                    for (var m = 0; m < Model.ListModule.Count(); m++)
+                                                    {
+                                                        
+                                                            
+                                                        var module = Model.ListModule[m];
+                                                    @Html.HiddenFor(model => model.ListModule[m].MID)
+                                                    
+                                                    <div class="checkbox checkbox-primary">
+                                                        @Html.CheckBoxFor(model => model.ListModule[m].IsChecked, new { @id = "chk" })
+                                                        <i class="fa @module.Icon" aria-hidden="true"></i>
+                                                        @Html.LabelFor(model => model.ListModule[m].Module, module.Module, new { @style = "font-weight: bold;" })
+                                                    </div>
+                                                        var mid = Model.ListModule[m].MID;
+
+                                                        for (var f = 0; f < Model.ListForms.Count(); f++)
+                                                        {
+                                                            var form = Model.ListForms[f];
+                                                            var menuid = Model.ListForms[f].MID;
+                                                            if (mid == menuid)
+                                                            {
+                                            
+                                                    @Html.HiddenFor(model => model.ListForms[f].FID)
+                                                    <div class="checkbox checkbox-primary">
+                                                        @Html.CheckBoxFor(model => model.ListForms[f].IsChecked, new { @id = "chk1", @style = "margin-left:20px;" })
+                                                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                                                        @Html.LabelFor(model => model.ListForms[f].FormName, form.FormName, new { @style = "margin-left:20px;" })
+                                                    </div>
+                                                            }
+
+                                                        }
+                                                            
+                                                    }
+                                                }
+                                                else if (Model.ListUserModule != null && Model.UID != null && Model.UID != 0)//Edit
+                                                {
+                                                    for (var m = 0; m < Model.ListUserModule.Count(); m++)
+                                                    {
+                                                        var module = Model.ListUserModule[m];
+                                                    @Html.HiddenFor(model => model.ListUserModule[m].MID)
+
+                                                    <div class="checkbox checkbox-primary">
+                                                        @Html.CheckBoxFor(model => model.ListUserModule[m].IsChecked, new { @id = "chk" })
+                                                        <i class="fa @module.ModuleDetail.Icon" aria-hidden="true"></i>
+                                                        @Html.LabelFor(model => model.ListModule[m].Module, module.ModuleDetail.Module, new { @style = "font-weight: bold;" })
+                                                    </div>
+                                                        var mid = Model.ListUserModule[m].MID;
+
+                                                        for (var f = 0; f < Model.ListUserForms.Count(); f++)
+                                                        {
+                                                            var form = Model.ListUserForms[f];
+                                                            var menuid = Model.ListUserForms[f].FormDetails.MID;
+                                                            if (mid == menuid)
+                                                            {
+                                            
+                                                    @Html.HiddenFor(model => model.ListUserForms[f].FID)
+                                                    <div class="checkbox checkbox-primary">
+                                                        @Html.CheckBoxFor(model => model.ListUserForms[f].IsChecked, new { @id = "chk1", @style = "margin-left:20px;" })
+                                                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                                                        @Html.LabelFor(model => model.ListUserForms[f].FormDetails.FormName, form.FormDetails.FormName, new { @style = "margin-left:20px;" })
+                                                    </div>
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="col-sm-12" style="height: 5px;"></div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">
+
+                                <input type="submit" value="Save" id="btnSave" name="cmd" class="btn btn-primary" />
+                                <input type="submit" value="Update" id="btnUpdate" name="cmd" class="btn btn-primary" />
+                                &nbsp;@*<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>*@
+                                <a href="/User/Index" class="btn btn-danger">Cancel</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--end col 6-->
+    
+  
+}
+<script>
+    $(document).ready(function () {
+        var t = $("#hdnTitle").val();
+
+        $("#ddlTitle").val(t);
+
+    });
+</script>
+
+
+
+

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP_System", "ERP_System\ERP_System.csproj", "{9886B887-4B97-4979-84E8-5DF0779A9B97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP_Models", "ERP_Models\ERP_Models.csproj", "{9CB751CE-6084-4857-8EC6-D7121B84F850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP_Services", "ERP_Services\ERP_Services.csproj", "{B1BCE1D1-4546-4547-AE46-8875E4818064}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9886B887-4B97-4979-84E8-5DF0779A9B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9886B887-4B97-4979-84E8-5DF0779A9B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9886B887-4B97-4979-84E8-5DF0779A9B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9886B887-4B97-4979-84E8-5DF0779A9B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CB751CE-6084-4857-8EC6-D7121B84F850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB751CE-6084-4857-8EC6-D7121B84F850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB751CE-6084-4857-8EC6-D7121B84F850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB751CE-6084-4857-8EC6-D7121B84F850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BCE1D1-4546-4547-AE46-8875E4818064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BCE1D1-4546-4547-AE46-8875E4818064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BCE1D1-4546-4547-AE46-8875E4818064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BCE1D1-4546-4547-AE46-8875E4818064}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
